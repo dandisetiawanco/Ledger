@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 40" width="180" height="40" fill="none" role="img" aria-label="Ledger dark mode logo">
+  <rect x="2" y="2" width="36" height="36" rx="7" fill="#19251F" stroke="#B9D9B9" stroke-width="1.5"/>
+  <rect x="10.5" y="10" width="4.5" height="20" rx="1" fill="#EDF2ED"/>
+  <rect x="25" y="10" width="4.5" height="12.5" rx="1" fill="#B9D9B9"/>
+  <rect x="10.5" y="25.5" width="19" height="4.5" rx="1" fill="#EDF2ED"/>
+  <rect x="18" y="17.5" width="4" height="4" rx="1" fill="#B9D9B9"/>
+  <text x="50" y="27.5" font-family="Georgia, 'Times New Roman', serif" font-size="24" font-weight="600" letter-spacing="-0.02em" fill="#EDF2ED">Ledger</text>
+</svg>

@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 360" width="1280" height="360" fill="none" role="img" aria-label="Ledger GitHub Repository Banner">
+  <rect width="1280" height="360" fill="#111A16"/>
+  <rect x="0" y="0" width="1280" height="6" fill="#B9D9B9"/>
+  <rect x="64" y="64" width="56" height="56" rx="10" fill="#19251F" stroke="#B9D9B9" stroke-width="1.5"/>
+  <rect x="78" y="77" width="6.5" height="30" rx="1.5" fill="#EDF2ED"/>
+  <rect x="99.5" y="77" width="6.5" height="18.5" rx="1.5" fill="#B9D9B9"/>
+  <rect x="78" y="100.5" width="28" height="6.5" rx="1.5" fill="#EDF2ED"/>
+  <rect x="89" y="88.5" width="6" height="6" rx="1.2" fill="#B9D9B9"/>
+  <text x="140" y="105" font-family="Georgia, 'Times New Roman', serif" font-size="38" font-weight="600" fill="#EDF2ED">Ledger</text>
+  <text x="64" y="196" font-family="Georgia, 'Times New Roman', serif" font-size="52" font-weight="600" letter-spacing="-0.02em" fill="#EDF2ED">Clarity in every transaction.</text>
+  <text x="64" y="242" font-family="system-ui, -apple-system, sans-serif" font-size="20" fill="#A5B4A9">Financial Management &amp; Double-Entry Accounting Platform  |  Java 21 · Spring Boot · PostgreSQL · Next.js</text>
+  <rect x="64" y="278" width="248" height="38" rx="6" fill="#19251F" stroke="#2D4237"/>
+  <text x="84" y="302" font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#B9D9B9">Double-Entry Journal Core</text>
+  <rect x="328" y="278" width="248" height="38" rx="6" fill="#19251F" stroke="#2D4237"/>
+  <text x="348" y="302" font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#B9D9B9">BigDecimal &amp; ACID Invariants</text>
+  <rect x="592" y="278" width="266" height="38" rx="6" fill="#19251F" stroke="#2D4237"/>
+  <text x="612" y="302" font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#B9D9B9">Invoicing · Banking · Reports</text>
+  <rect x="874" y="278" width="206" height="38" rx="6" fill="#19251F" stroke="#2D4237"/>
+  <text x="894" y="302" font-family="ui-monospace, SFMono-Regular, monospace" font-size="14" fill="#B9D9B9">Multi-Tenant RBAC</text>
+</svg>

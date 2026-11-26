@@ -1,0 +1,11 @@
+{
+  "name": "ledger-monorepo",
+  "private": true,
+  "scripts": {
+    "dev:web": "pnpm --filter @ledger/web dev",
+    "build:web": "pnpm --filter @ledger/web build",
+    "lint:web": "pnpm --filter @ledger/web lint",
+    "typecheck:web": "pnpm --filter @ledger/web typecheck",
+    "test:web": "pnpm --filter @ledger/web test"
+  }
+}

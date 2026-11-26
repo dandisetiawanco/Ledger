@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" width="40" height="40" fill="none" role="img" aria-label="Ledger brand mark">
+  <rect x="2" y="2" width="36" height="36" rx="7" fill="#183D30"/>
+  <rect x="10.5" y="10" width="4.5" height="20" rx="1" fill="#F6F4EE"/>
+  <rect x="25" y="10" width="4.5" height="12.5" rx="1" fill="#D6E8D4"/>
+  <rect x="10.5" y="25.5" width="19" height="4.5" rx="1" fill="#F6F4EE"/>
+  <rect x="18" y="17.5" width="4" height="4" rx="1" fill="#D6E8D4"/>
+</svg>
