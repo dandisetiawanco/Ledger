@@ -1,0 +1,62 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 460" width="960" height="460" fill="none" role="img" aria-label="Ledger Database Entity Relationship Diagram">
+  <rect width="960" height="460" rx="12" fill="#F6F4EE"/>
+  <text x="32" y="40" font-family="Georgia, serif" font-size="21" font-weight="600" fill="#183D30">Core Financial Entity Relationships (34 Flyway Tables)</text>
+
+  <!-- Organizations -->
+  <rect x="32" y="70" width="210" height="110" rx="6" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="32" y="70" width="210" height="28" rx="6" fill="#183D30"/>
+  <text x="44" y="89" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">organizations</text>
+  <text x="44" y="116" font-family="ui-monospace, monospace" font-size="11" fill="#222222">PK id (UUID)</text>
+  <text x="44" y="134" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">base_currency, time_zone</text>
+  <text x="44" y="152" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">is_demo, version</text>
+  <text x="44" y="170" font-family="ui-monospace, monospace" font-size="10" fill="#183D30">+ memberships, settings, fx</text>
+
+  <!-- Accounts & Periods -->
+  <rect x="280" y="70" width="220" height="110" rx="6" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="280" y="70" width="220" height="28" rx="6" fill="#183D30"/>
+  <text x="292" y="89" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">accounts &amp; periods</text>
+  <text x="292" y="116" font-family="ui-monospace, monospace" font-size="11" fill="#222222">PK id · FK organization_id</text>
+  <text x="292" y="134" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">UQ (org_id, code), type</text>
+  <text x="292" y="152" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">normal_balance, allow_posting</text>
+  <text x="292" y="170" font-family="ui-monospace, monospace" font-size="10" fill="#183D30">+ fiscal_years, periods (OPEN/CLOSED)</text>
+
+  <!-- Journals -->
+  <rect x="540" y="70" width="388" height="122" rx="6" fill="#D6E8D4" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="540" y="70" width="388" height="28" rx="6" fill="#183D30"/>
+  <text x="552" y="89" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">journal_entries  1 ──&lt;  N  journal_lines</text>
+  <text x="552" y="116" font-family="ui-monospace, monospace" font-size="11" fill="#183D30">UQ (org_id, entry_number) · UQ (org_id, business_event_key)</text>
+  <text x="552" y="134" font-family="ui-monospace, monospace" font-size="11" fill="#222222">status: DRAFT | PENDING_APPROVAL | POSTED | REVERSED</text>
+  <text x="552" y="152" font-family="ui-monospace, monospace" font-size="11" fill="#222222">reversed_entry_id / reversal_entry_id (linked pair)</text>
+  <text x="552" y="170" font-family="ui-monospace, monospace" font-size="11" fill="#183D30">CHECK NOT (debit_amount &gt; 0 AND credit_amount &gt; 0)</text>
+
+  <!-- Invoices -->
+  <rect x="32" y="230" width="275" height="114" rx="6" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="32" y="230" width="275" height="28" rx="6" fill="#183D30"/>
+  <text x="44" y="249" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">invoices · invoice_lines · credit_notes</text>
+  <text x="44" y="276" font-family="ui-monospace, monospace" font-size="11" fill="#222222">FK customer_id -> contacts(id)</text>
+  <text x="44" y="294" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">FK journal_entry_id -> journal_entries</text>
+  <text x="44" y="312" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">NUMERIC(19,4) totals · CHECK bal &gt;= 0</text>
+  <text x="44" y="330" font-family="ui-monospace, monospace" font-size="10" fill="#183D30">Row-locked document_sequences</text>
+
+  <!-- Payments & Expenses -->
+  <rect x="342" y="230" width="275" height="114" rx="6" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="342" y="230" width="275" height="28" rx="6" fill="#183D30"/>
+  <text x="354" y="249" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">payments · allocations · expenses</text>
+  <text x="354" y="276" font-family="ui-monospace, monospace" font-size="11" fill="#222222">UQ (org_id, idempotency_key)</text>
+  <text x="354" y="294" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">allocations -> invoices / supplier_bills</text>
+  <text x="354" y="312" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">realized_fx_gain_loss NUMERIC(19,4)</text>
+  <text x="354" y="330" font-family="ui-monospace, monospace" font-size="10" fill="#183D30">IMMEDIATE_EXPENSE vs SUPPLIER_BILL</text>
+
+  <!-- Banking & Governance -->
+  <rect x="652" y="230" width="276" height="114" rx="6" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="652" y="230" width="276" height="28" rx="6" fill="#183D30"/>
+  <text x="664" y="249" font-family="ui-monospace, monospace" font-size="12" font-weight="600" fill="#FFFFFF">banking · reconciliation · budgets</text>
+  <text x="664" y="276" font-family="ui-monospace, monospace" font-size="11" fill="#222222">UQ (org, bank_acct, fingerprint)</text>
+  <text x="664" y="294" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">UQ active_bank_line_id &amp; journal_line_id</text>
+  <text x="664" y="312" font-family="ui-monospace, monospace" font-size="11" fill="#4F5A54">budgets · budget_lines · revisions</text>
+  <text x="664" y="330" font-family="ui-monospace, monospace" font-size="10" fill="#183D30">+ approvals, attachments, audit_events</text>
+
+  <!-- Footer legend -->
+  <rect x="32" y="378" width="896" height="50" rx="6" fill="#EFECE3" stroke="#DDD8CB"/>
+  <text x="48" y="408" font-family="system-ui, sans-serif" font-size="12" fill="#222222">All 34 tables enforce organization_id foreign keys, explicit precision NUMERIC(19,4), UTC timestamps, and Hibernate ddl-auto: validate against Flyway.</text>
+</svg>

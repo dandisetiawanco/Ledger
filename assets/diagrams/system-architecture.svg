@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 440" width="960" height="440" fill="none" role="img" aria-label="Ledger System Architecture Diagram">
+  <rect width="960" height="440" rx="12" fill="#F6F4EE"/>
+  <text x="32" y="42" font-family="Georgia, serif" font-size="22" font-weight="600" fill="#183D30">Ledger Modular Monolith Architecture</text>
+  <text x="32" y="64" font-family="system-ui, sans-serif" font-size="13" fill="#4F5A54">Next.js App Router Frontend  ->  Spring Boot 3.4 Modular Backend (Java 21)  ->  PostgreSQL / H2 via Flyway</text>
+
+  <!-- Frontend box -->
+  <rect x="32" y="96" width="210" height="296" rx="8" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="32" y="96" width="210" height="36" rx="8" fill="#183D30"/>
+  <text x="48" y="119" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Frontend (Next.js :3002)</text>
+  <text x="48" y="160" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">Public Website</text>
+  <text x="48" y="178" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">Home, Product, Accounting, Demo</text>
+  <text x="48" y="212" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">Accounting Workspace</text>
+  <text x="48" y="230" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">COA, Journals, GL, Invoices,</text>
+  <text x="48" y="246" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">Expenses, Banking, Reports</text>
+  <text x="48" y="282" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">Shared Packages</text>
+  <text x="48" y="300" font-family="ui-monospace, monospace" font-size="11" fill="#183D30">@ledger/contracts (Decimal.js)</text>
+  <text x="48" y="318" font-family="ui-monospace, monospace" font-size="11" fill="#183D30">@ledger/ui (Brand &amp; Tokens)</text>
+  <rect x="48" y="340" width="178" height="34" rx="5" fill="#D6E8D4"/>
+  <text x="60" y="361" font-family="ui-monospace, monospace" font-size="11" font-weight="600" fill="#183D30">/api/* Same-Origin Proxy</text>
+
+  <!-- Arrow 1 -->
+  <line x1="242" y1="244" x2="284" y2="244" stroke="#183D30" stroke-width="2"/>
+  <polygon points="284,238 296,244 284,250" fill="#183D30"/>
+
+  <!-- Backend box -->
+  <rect x="296" y="96" width="420" height="296" rx="8" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="296" y="96" width="420" height="36" rx="8" fill="#183D30"/>
+  <text x="312" y="119" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Spring Boot Modular Monolith (Java 21 :8082)</text>
+
+  <!-- Security bar -->
+  <rect x="314" y="146" width="384" height="34" rx="5" fill="#EFECE3" stroke="#B9B2A2"/>
+  <text x="326" y="167" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#222222">RequestIdFilter · Spring Security (HttpOnly Session + CSRF + RBAC + Rate Limit)</text>
+
+  <!-- Domain modules grid -->
+  <rect x="314" y="194" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="324" y="216" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Invoicing &amp; PDF</text>
+  <text x="324" y="233" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">OpenPDF · Credits</text>
+
+  <rect x="446" y="194" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="456" y="216" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Payments &amp; FX</text>
+  <text x="456" y="233" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">Idempotent · Locks</text>
+
+  <rect x="578" y="194" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="588" y="216" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Expenses &amp; AP</text>
+  <text x="588" y="233" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">Bills · Approvals</text>
+
+  <rect x="314" y="256" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="324" y="278" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Banking &amp; Recon</text>
+  <text x="324" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">CSV · SHA-256</text>
+
+  <rect x="446" y="256" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="456" y="278" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Reporting Engine</text>
+  <text x="456" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">TB · P&amp;L · BS · CF</text>
+
+  <rect x="578" y="256" width="120" height="52" rx="5" fill="#F6F4EE" stroke="#DDD8CB"/>
+  <text x="588" y="278" font-family="system-ui, sans-serif" font-size="11" font-weight="600" fill="#183D30">Audit &amp; Budgets</text>
+  <text x="588" y="295" font-family="system-ui, sans-serif" font-size="10" fill="#4F5A54">Events · Alerts</text>
+
+  <!-- Accounting Core foundation -->
+  <rect x="314" y="322" width="384" height="52" rx="5" fill="#D6E8D4" stroke="#183D30"/>
+  <text x="328" y="344" font-family="system-ui, sans-serif" font-size="12" font-weight="700" fill="#183D30">Double-Entry Accounting Core (JournalService · AccountService · PeriodService)</text>
+  <text x="328" y="362" font-family="ui-monospace, monospace" font-size="10.5" fill="#183D30">BigDecimal · ACID Transactions · Immutable Journals · Row-Locked Sequences</text>
+
+  <!-- Arrow 2 -->
+  <line x1="716" y1="244" x2="758" y2="244" stroke="#183D30" stroke-width="2"/>
+  <polygon points="758,238 770,244 758,250" fill="#183D30"/>
+
+  <!-- Persistence box -->
+  <rect x="770" y="96" width="158" height="296" rx="8" fill="#FFFFFF" stroke="#183D30" stroke-width="1.5"/>
+  <rect x="770" y="96" width="158" height="36" rx="8" fill="#183D30"/>
+  <text x="786" y="119" font-family="system-ui, sans-serif" font-size="13" font-weight="600" fill="#FFFFFF">Persistence</text>
+  <text x="786" y="160" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">PostgreSQL 16</text>
+  <text x="786" y="178" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">Production profile</text>
+  <text x="786" y="194" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">34 Flyway tables</text>
+  <text x="786" y="232" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">H2 File-Backed</text>
+  <text x="786" y="250" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">PostgreSQL mode</text>
+  <text x="786" y="266" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">Lightweight dev</text>
+  <text x="786" y="306" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#222222">Private Storage</text>
+  <text x="786" y="324" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">Receipt attachments</text>
+  <text x="786" y="340" font-family="system-ui, sans-serif" font-size="11" fill="#4F5A54">SHA-256 &amp; auth gate</text>
+</svg>
