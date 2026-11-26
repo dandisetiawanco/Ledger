@@ -15,8 +15,8 @@ public interface AuditEventRepository extends JpaRepository<AuditEvent, UUID> {
             WHERE a.organizationId = :orgId
               AND (:action IS NULL OR a.action = :action)
               AND (:entityType IS NULL OR a.entityType = :entityType)
-              AND (:search IS NULL OR LOWER(a.summary) LIKE LOWER(CONCAT('%', :search, '%'))
-                   OR LOWER(COALESCE(a.actorEmail, '')) LIKE LOWER(CONCAT('%', :search, '%')))
+              AND (:search IS NULL OR LOWER(a.summary) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%'))
+                   OR LOWER(COALESCE(a.actorEmail, '')) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%')))
             ORDER BY a.occurredAt DESC
             """)
     Page<AuditEvent> searchByOrganization(

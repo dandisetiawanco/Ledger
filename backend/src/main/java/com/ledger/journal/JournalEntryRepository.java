@@ -30,9 +30,9 @@ public interface JournalEntryRepository extends JpaRepository<JournalEntry, UUID
               AND (:sourceType IS NULL OR j.sourceType = :sourceType)
               AND (:fromDate IS NULL OR j.entryDate >= :fromDate)
               AND (:toDate IS NULL OR j.entryDate <= :toDate)
-              AND (:search IS NULL OR LOWER(j.description) LIKE LOWER(CONCAT('%', :search, '%'))
-                   OR LOWER(j.entryNumber) LIKE LOWER(CONCAT('%', :search, '%'))
-                   OR LOWER(COALESCE(j.reference, '')) LIKE LOWER(CONCAT('%', :search, '%')))
+              AND (:search IS NULL OR LOWER(j.description) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%'))
+                   OR LOWER(j.entryNumber) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%'))
+                   OR LOWER(COALESCE(j.reference, '')) LIKE LOWER(CONCAT('%', CAST(:search AS string), '%')))
             ORDER BY j.entryDate DESC, j.createdAt DESC
             """)
     Page<JournalEntry> search(

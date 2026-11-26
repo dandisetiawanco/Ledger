@@ -1,11 +1,15 @@
 package com.ledger.integration;
 
+import com.ledger.audit.AuditEventRepository;
 import com.ledger.demo.DemoSeedService;
+import com.ledger.journal.JournalEntryRepository;
 import com.ledger.reporting.ReportingService;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
@@ -22,6 +26,7 @@ import static org.assertj.core.api.Assertions.assertThat;
  * and reconciled financial reports against a real PostgreSQL 16 database via Testcontainers.
  */
 @Tag("postgres-integration")
+@ActiveProfiles("postgres")
 @Testcontainers
 @SpringBootTest
 class PostgresIntegrationIT {
@@ -45,6 +50,8 @@ class PostgresIntegrationIT {
 
     @Autowired private DemoSeedService demoSeedService;
     @Autowired private ReportingService reportingService;
+    @Autowired private JournalEntryRepository journalEntryRepository;
+    @Autowired private AuditEventRepository auditEventRepository;
 
     @Test
     void runsMigrationsAndReconcilesLedgerOnRealPostgres() {
@@ -57,11 +64,15 @@ class PostgresIntegrationIT {
         var cf = reportingService.cashFlow(orgId, today.minusMonths(5).withDayOfMonth(1), today);
         var ar = reportingService.receivablesAging(orgId, today);
         var ap = reportingService.payablesAging(orgId, today);
+        var journals = journalEntryRepository.search(orgId, null, null, null, null, null, PageRequest.of(0, 10));
+        var audits = auditEventRepository.searchByOrganization(orgId, null, null, null, PageRequest.of(0, 10));
 
         assertThat(tb.balanced()).isTrue();
         assertThat(bs.balanced()).isTrue();
         assertThat(cf.reconciled()).isTrue();
         assertThat(ar.reconciledWithGl()).isTrue();
         assertThat(ap.reconciledWithGl()).isTrue();
+        assertThat(journals.getTotalElements()).isGreaterThan(10);
+        assertThat(audits.getTotalElements()).isGreaterThan(10);
     }
 }

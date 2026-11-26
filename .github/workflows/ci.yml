@@ -27,7 +27,7 @@ jobs:
         run: ./mvnw -B test
       - name: Run PostgreSQL Testcontainers integration verification
         working-directory: backend
-        run: ./mvnw -B verify -DskipUTs -Dtest=skip -Dit.test=PostgresIntegrationIT
+        run: ./mvnw -B test-compile failsafe:integration-test failsafe:verify -Dit.test=PostgresIntegrationIT
 
   frontend:
     name: Frontend Typecheck, Lint, Unit Tests & Production Build

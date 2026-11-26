@@ -1,0 +1,17 @@
+.git
+node_modules
+apps/web/node_modules
+packages/contracts/node_modules
+packages/ui/node_modules
+apps/web/.next
+apps/web/out
+backend/target
+backend/data
+backend/uploads
+logs
+.pids
+.env
+.env.*
+assets/screenshots
+*.log
+*.tsbuildinfo
