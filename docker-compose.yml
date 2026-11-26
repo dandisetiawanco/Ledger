@@ -1,0 +1,59 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB:-ledger}
+      POSTGRES_USER: ${POSTGRES_USER:-ledger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_local_only}
+    volumes:
+      - ledger_pg_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-ledger} -d ${POSTGRES_DB:-ledger}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    # PostgreSQL is kept on the internal Compose network and is not published publicly by default.
+
+  backend:
+    build:
+      context: ./backend
+      dockerfile: ../infrastructure/docker/Dockerfile.backend
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: postgres
+      SERVER_PORT: 8082
+      POSTGRES_HOST: postgres
+      POSTGRES_PORT: 5432
+      POSTGRES_DB: ${POSTGRES_DB:-ledger}
+      POSTGRES_USER: ${POSTGRES_USER:-ledger}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_me_local_only}
+      LEDGER_SESSION_COOKIE_SECURE: ${LEDGER_SESSION_COOKIE_SECURE:-false}
+      LEDGER_ALLOWED_ORIGINS: ${LEDGER_ALLOWED_ORIGINS:-http://localhost:3002}
+      LEDGER_STORAGE_DIR: /app/uploads
+    ports:
+      - "127.0.0.1:8082:8082"
+    volumes:
+      - ledger_uploads:/app/uploads
+
+  frontend:
+    build:
+      context: .
+      dockerfile: infrastructure/docker/Dockerfile.frontend
+      args:
+        BACKEND_URL: http://backend:8082
+    restart: unless-stopped
+    depends_on:
+      - backend
+    environment:
+      BACKEND_URL: http://backend:8082
+      PORT: 3002
+    ports:
+      - "127.0.0.1:3002:3002"
+
+volumes:
+  ledger_pg_data:
+  ledger_uploads:

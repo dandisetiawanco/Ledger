@@ -1,0 +1,18 @@
+FROM eclipse-temurin:21-jdk-alpine AS build
+WORKDIR /app
+COPY .mvn/ .mvn/
+COPY mvnw pom.xml ./
+RUN chmod +x mvnw && ./mvnw -B dependency:go-offline
+COPY src/ src/
+RUN ./mvnw -B package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+RUN addgroup -S ledger && adduser -S ledger -G ledger
+RUN mkdir -p /app/uploads /app/data && chown -R ledger:ledger /app
+COPY --from=build --chown=ledger:ledger /app/target/*.jar /app/ledger.jar
+USER ledger
+EXPOSE 8082
+HEALTHCHECK --interval=30s --timeout=5s --start-period=30s --retries=3 \
+  CMD wget -qO- http://127.0.0.1:8082/actuator/health || exit 1
+ENTRYPOINT ["java", "-Xms256m", "-Xmx768m", "-jar", "/app/ledger.jar"]
