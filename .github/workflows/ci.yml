@@ -27,7 +27,17 @@ jobs:
         run: ./mvnw -B test
       - name: Run PostgreSQL Testcontainers integration verification
         working-directory: backend
-        run: ./mvnw -B test-compile failsafe:integration-test failsafe:verify -Dit.test=PostgresIntegrationIT
+        run: ./mvnw -B test-compile failsafe:integration-test failsafe:verify -Dit.test=PostgresIntegrationIT -Ddocker.java.api.version=1.44
+      - name: Surface Failsafe error summary on failure
+        if: failure()
+        working-directory: backend
+        run: |
+          for f in target/failsafe-reports/*.txt; do
+            if [ -f "$f" ]; then
+              echo "::error title=$(basename "$f")::$(tr '\n' ' ' < "$f" | head -c 900)"
+              cat "$f"
+            fi
+          done
 
   frontend:
     name: Frontend Typecheck, Lint, Unit Tests & Production Build
@@ -50,7 +60,16 @@ jobs:
       - name: Vitest unit tests
         run: pnpm test:web
       - name: Next.js production build
-        run: pnpm build:web
+        run: |
+          if ! pnpm build:web > /tmp/next-build.log 2>&1; then
+            echo "Retrying Next.js build once after transient error..."
+            if ! pnpm build:web > /tmp/next-build.log 2>&1; then
+              cat /tmp/next-build.log
+              echo "::error title=Next.js build failed::$(tail -n 30 /tmp/next-build.log | tr '\n' ' ' | head -c 900)"
+              exit 1
+            fi
+          fi
+          cat /tmp/next-build.log
 
   docker-verify:
     name: Docker Image Build Verification
