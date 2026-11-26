@@ -1,0 +1,49 @@
+# OS & Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.iml
+*.swp
+*~
+
+# Environment & Secrets
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Runtime data, uploads & logs
+data/
+uploads/
+logs/
+.pids/
+backend/data/
+backend/uploads/
+backend/logs/
+*.mv.db
+*.trace.db
+
+# Java / Maven
+backend/target/
+*.jar
+*.war
+*.class
+
+# Node / Next.js / Frontend
+node_modules/
+.next/
+out/
+dist/
+coverage/
+.turbo/
+apps/web/.next/
+apps/web/out/
+apps/web/playwright-report/
+apps/web/test-results/
+*.tsbuildinfo
+
+# Misc
+tmp/
+*.log
